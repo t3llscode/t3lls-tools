@@ -1,0 +1,12 @@
+.segmentContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .segment {
+    transform: rotate(-90deg); /* Rotate the segment to start from the top */
+  }
+  
+  

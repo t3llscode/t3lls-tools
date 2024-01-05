@@ -1,0 +1,38 @@
+version: "3.8"
+
+networks:
+
+  t3lls_gate--app_net:
+    external: true
+
+services:
+
+  njs-tools:
+    build:
+      context: ./njs-tools/next-app
+      dockerfile: prod.Dockerfile
+    restart: always
+    ports:
+      - 3006:3000
+    networks:
+      - t3lls_gate--app_net
+    env_file:
+      - ./njs-tools/.env
+    stop_grace_period: 0s
+
+  njs-tools-dev:
+    container_name: tools-njs-tools-dev
+    build:
+      context: ./njs-tools/next-app
+      dockerfile: dev.Dockerfile
+    restart: always
+    ports:
+      - 3007:3000
+    networks:
+      - t3lls_gate--app_net
+    volumes:
+      - ./njs-tools/next-app/src:/app/src
+      - ./njs-tools/next-app/public:/app/public
+    env_file:
+      - ./njs-tools/.env
+    stop_grace_period: 0s
