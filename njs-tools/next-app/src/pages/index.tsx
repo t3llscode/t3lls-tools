@@ -14,6 +14,10 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to my Tools.
         </h1>
+        <br></br>
+        <a href="https://tools.t3l.ls/timer">
+          Click here to get to the Timer.
+        </a>
       </main>
     </div>
   )
