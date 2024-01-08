@@ -1,0 +1,14 @@
+.title {
+  font-size: 1.5rem;
+  margin: 0;
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+.grid2x2 {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 0.5rem;
+}
