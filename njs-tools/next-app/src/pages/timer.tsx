@@ -18,9 +18,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to my Timer
         </h1>
-        {/* <Segment percentage={50} direction="left" /> */}
-        {/* <QuarterCircle  width={300} height={300} /> */}
-        <Segment percentage={50} direction={"left"}/>
+        <Segment radius={50} stroke={3} percentage={0.5} reversed={false}/>
         
         
       </main>
