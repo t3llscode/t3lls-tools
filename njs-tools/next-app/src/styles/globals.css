@@ -11,6 +11,13 @@ body {
   height: 100vh;
 }
 
+:root {
+  --primary: white;
+  --secondary: black;
+  --primary-transparent: #ffffffdd;
+  --secondary-transparent: #000000dd;
+}
+
 a {
   color: inherit;
   text-decoration: none;

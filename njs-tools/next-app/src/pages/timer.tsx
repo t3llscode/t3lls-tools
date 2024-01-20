@@ -81,14 +81,13 @@ export default function Home() {
 
   const totalTime = calcTime(config);
 
-  const order = ["bl", "br", "tr", "tl"]
+  const [orderInput, setOrderInput] = useState(["bl", "br", "tr", "tl"]);
+  const [timeInput, setTimeInput] = useState([15, 15, 15]);
+
+  const [showSettings, setShowSettings] = useState(false);
+
   const iterateOrder = ["tl", "tr", "bl", "br"]
-  const rotation = {
-    tl: 180,
-    tr: 270,
-    bl: 90,
-    br: 0
-  }
+  const rotation = { tl: 180, tr: 270, bl: 90, br: 0 }
 
   // - - - COLOR RELATED - - -
 
@@ -122,7 +121,7 @@ export default function Home() {
     Object.entries(config).forEach(([surface, config]) => {
       tmp[surface] = {};
 
-      order.forEach((quadrant) => {
+      orderInput.forEach((quadrant) => {
         if (time == 0) {
           tmp[surface][quadrant] = 0;
         } else if (time > config.time * 1000) {
@@ -225,6 +224,22 @@ export default function Home() {
     setRunning((previous) => !previous);
   }
 
+  function toggleShowSettings() {
+    setShowSettings((previous) => !previous);
+  }
+
+  function updateTime() {
+    let tmpTime = timeInput;
+
+    let tmp = config;
+    tmp.outer.time = tmpTime[0];
+    tmp.chewing.time = tmpTime[1];
+    tmp.inner.time = tmpTime[2];
+    setConfig(tmp);
+
+    setMs(calcTime(tmp));
+  }
+
   // - - - USE EFFECTS - - -
   
   const intervalRef = useRef();
@@ -262,12 +277,13 @@ export default function Home() {
     <div className={customStyles.container}>
 
       <Head>
-        <title>t3lls tooth time</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>t3lls tooth timer</title>
+        <link rel="icon" href="https://data.t3l.ls/media/t3.ico" />
       </Head>
 
       <div className={customStyles.main}>
 
+        {/* Segments / Circle of the Timer */}
         <div className={customStyles.container} onClick={toggleTimer}>
           <div className={customStyles.circles}>
             { Object.entries(config).map(([surface, config]: any) => (
@@ -288,10 +304,9 @@ export default function Home() {
               </div>
             ))}
           </div>
-
-          
         </div>
 
+        {/* Inside of the Timer */}
         <div className={customStyles.inside} onClick={toggleTimer}>
           <div className={customStyles.time}>
             { formatTime(ms) }
@@ -302,14 +317,48 @@ export default function Home() {
             <Cell tag="Total" value={`${ calcTotalFullfilled(fullfilled) }/${ Object.keys(config).length * 4 }`} width={4.3} />
           </div>
         </div>
-
-        <footer className={customStyles.footer}>
-          <a href="https://t3l.ls" target="_blank" rel="noopener noreferrer">
-            © 2024 t3lls by Tell Hensel
-          </a>
-        </footer>
-
       </div>
+
+      {/* Settings Button */}
+      <div className={customStyles.clickable} onClick={toggleShowSettings}>
+        {
+          showSettings ? (
+            <Image className={customStyles.settingsIcon} src="https://data.t3l.ls/media/icons/cancel2.svg" alt="Settings" width={500} height={500} />
+          ) : (
+            <Image className={customStyles.settingsIcon} src="https://data.t3l.ls/media/icons/InfoGear.svg" alt="Settings" width={500} height={500} />
+          )
+        }
+      </div>
+
+      {/* Settings */}
+      { showSettings && (
+        <div className={customStyles.settingsBox}>
+          <div className={customStyles.config} >
+            <p className={customStyles.configText}>
+              Enter the segments seperated by<br></br>
+              a comma in the order you like:<br></br><br></br>
+              Top-Left: tl<br></br>
+              Top-Right: tr<br></br>
+              Bottom-Left: bl<br></br>
+              Bottom-Right: br<br></br>
+            </p>
+            <input type="text" id="orderInput" value={orderInput.join(", ")} onChange={e => setOrderInput(e.target.value.split(', '))}/>
+            <p className={customStyles.configText}>
+              Enter the time per segment<br></br>
+              per side seperated by a comma:<br></br>
+            </p>
+            <input type="text" id="timeInput" value={timeInput.join(", ")} onChange={e => setTimeInput(e.target.value.split(', ').map(number => parseInt(number)))}/>
+            <br></br>
+            <button onClick={updateTime}>Submit</button>
+          </div>
+        </div>
+      )}
+
+      <footer className={customStyles.footer}>
+        <a href="https://t3l.ls" target="_blank" rel="noopener noreferrer">
+          © 2024 t3lls by Tell Hensel
+        </a>
+      </footer>
 
     </div>
   )
