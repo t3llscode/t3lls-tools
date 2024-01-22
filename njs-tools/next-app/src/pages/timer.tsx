@@ -82,7 +82,7 @@ export default function Home() {
   const totalTime = calcTime(config);
 
   const [orderInput, setOrderInput] = useState(["bl", "br", "tr", "tl"]);
-  const [timeInput, setTimeInput] = useState([15, 15, 15]);
+  const [timeInputSafe, setTimeInputSafe] = useState(["15", "15", "15"]);
 
   const [showSettings, setShowSettings] = useState(false);
 
@@ -116,7 +116,7 @@ export default function Home() {
 
   const calcPercentages = (ms, config: Object) => {
     let tmp = {};
-    let time = totalTime - ms;
+    let time = calcTime(config) - ms;
 
     Object.entries(config).forEach(([surface, config]) => {
       tmp[surface] = {};
@@ -219,7 +219,7 @@ export default function Home() {
 
   function toggleTimer() {
     if (ms == 0) {
-      setMs(totalTime);
+      setMs(calcTime(config));
     }
     setRunning((previous) => !previous);
   }
@@ -228,16 +228,30 @@ export default function Home() {
     setShowSettings((previous) => !previous);
   }
 
-  function updateTime() {
-    let tmpTime = timeInput;
+  function safeOrderInput(input) {
+    if (input.length == 4) {
+      setOrderInput(input);
+    }
+  }
 
-    let tmp = config;
-    tmp.outer.time = tmpTime[0];
-    tmp.chewing.time = tmpTime[1];
-    tmp.inner.time = tmpTime[2];
-    setConfig(tmp);
-
-    setMs(calcTime(tmp));
+  function safeTimeInput(input) {
+    if (input.length == 3) {
+      setTimeInputSafe(input);
+      let clean = true;
+      for (let i = 0; i < input.length; i++) {
+        if (typeof(parseInt(input[i])) !== "number" || input[i] < 1 || input[i] > 45) {
+          clean = false;
+          console.log("not clean", input[i], i);
+        }
+      } 
+      if (clean) {
+        console.log("clean run")
+        config.outer.time = parseInt(input[0]);
+        config.chewing.time = parseInt(input[1]);
+        config.inner.time = parseInt(input[2]);
+        setMs(calcTime(config));
+      }
+    }
   }
 
   // - - - USE EFFECTS - - -
@@ -268,7 +282,7 @@ export default function Home() {
   // - - - INIT - - -
 
   useEffect(() => {
-    setMs(totalTime);
+    setMs(calcTime(config));
   }, []);
 
   // - - - RENDER - - -
@@ -342,14 +356,12 @@ export default function Home() {
               Bottom-Left: bl<br></br>
               Bottom-Right: br<br></br>
             </p>
-            <input type="text" id="orderInput" value={orderInput.join(", ")} onChange={e => setOrderInput(e.target.value.split(', '))}/>
+            <input type="text" id="orderInput" value={orderInput.join(", ")} onChange={e => safeOrderInput(e.target.value.split(', '))}/>
             <p className={customStyles.configText}>
               Enter the time per segment<br></br>
               per side seperated by a comma:<br></br>
             </p>
-            <input type="text" id="timeInput" value={timeInput.join(", ")} onChange={e => setTimeInput(e.target.value.split(', ').map(number => parseInt(number)))}/>
-            <br></br>
-            <button onClick={updateTime}>Submit</button>
+            <input type="text" id="timeInput" value={timeInputSafe.join(", ")} onChange={e => safeTimeInput(e.target.value.split(', '))}/>
           </div>
         </div>
       )}
