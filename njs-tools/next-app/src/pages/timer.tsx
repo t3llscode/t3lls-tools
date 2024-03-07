@@ -79,6 +79,13 @@ export default function Home() {
     inner: 0
   });
 
+  // - - - Checkbox Related - - -
+
+  let startingPointCheck = true;
+  let rotationCheck = true;
+
+  // - - -
+
   const totalTime = calcTime(config);
 
   const [orderInput, setOrderInput] = useState(["bl", "br", "tr", "tl"]);
@@ -228,37 +235,45 @@ export default function Home() {
     setShowSettings((previous) => !previous);
   }
 
-  function safeOrderInput(input) {
-    if (input.length == 4) {
-      setOrderInput(input);
-    }
-  }
+  // historical order input function
 
-  function safeTimeInput(input) {
-    if (input.length == 3) {
-      setTimeInputSafe(input);
-      let clean = true;
-      for (let i = 0; i < input.length; i++) {
-        if (typeof(parseInt(input[i])) !== "number" || input[i] < 1 || input[i] > 45) {
-          clean = false;
-          console.log("not clean", input[i], i);
-        }
-      } 
-      if (clean) {
-        console.log("clean run")
-        config.outer.time = parseInt(input[0]);
-        config.chewing.time = parseInt(input[1]);
-        config.inner.time = parseInt(input[2]);
-        setMs(calcTime(config));
-      }
-    }
-  }
+  // function safeOrderInput(input) {
+  //   if (input.length == 4) {
+  //     setOrderInput(input);
+  //   }
+  // }
+
+
+  // historical time input function
+
+  // function safeTimeInput(input) {
+  //   if (input.length == 3) {
+  //     setTimeInputSafe(input);
+  //     let clean = true;
+  //     for (let i = 0; i < input.length; i++) {
+  //       if (typeof(parseInt(input[i])) !== "number" || input[i] < 1 || input[i] > 45) {
+  //         clean = false;
+  //         console.log("not clean", input[i], i);
+  //       }
+  //     } 
+  //     if (clean) {
+  //       console.log("clean run")
+  //       config.outer.time = parseInt(input[0]);
+  //       config.chewing.time = parseInt(input[1]);
+  //       config.inner.time = parseInt(input[2]);
+  //       setMs(calcTime(config));
+  //     }
+  //   }
+  // }
 
   // - - - USE EFFECTS - - -
   
   const intervalRef = useRef();
 
+  // update this shitty stuff
+
   useEffect(() => {
+
     const decrease = async () => {
       if (ms >= 10 && running) {
         intervalRef.current = setInterval(() => {
@@ -348,20 +363,35 @@ export default function Home() {
       { showSettings && (
         <div className={customStyles.settingsBox}>
           <div className={customStyles.config} >
-            <p className={customStyles.configText}>
-              Enter the segments seperated by<br></br>
-              a comma in the order you like:<br></br><br></br>
-              Top-Left: tl<br></br>
-              Top-Right: tr<br></br>
-              Bottom-Left: bl<br></br>
-              Bottom-Right: br<br></br>
-            </p>
-            <input type="text" id="orderInput" value={orderInput.join(", ")} onChange={e => safeOrderInput(e.target.value.split(', '))}/>
-            <p className={customStyles.configText}>
-              Enter the time per segment<br></br>
-              per side seperated by a comma:<br></br>
-            </p>
-            <input type="text" id="timeInput" value={timeInputSafe.join(", ")} onChange={e => safeTimeInput(e.target.value.split(', '))}/>
+            <div>
+              <div className={customStyles.generalTime}>
+                <button className={customStyles.button} onClick={toggleShowSettings}>switch to advanced settings</button>
+              </div>
+              <p>Choose the starting point of the timer:</p>
+              <input type="radio" id="top" name="startingpoint" checked={startingPointCheck} value="top"/>
+              <label for="top">Top</label>
+              <input type="radio" id="bottom" name="startingpoint" value="bottom"/>
+              <label for="bottom">Bottom</label>
+              <input type="radio" id="right" name="startingpoint" value="right"/>
+              <label for="right">Right</label>
+              <input type="radio" id="left" name="startingpoint" value="left"/>
+              <label for="left">Left</label>
+            </div>
+            <br/>
+            <p>Choose the rotation of the timer:</p>
+            <div>
+              <input type="radio" id="right" name="rotation" checked={rotationCheck} value={true}/>
+              <label for="right">Clockwise</label>
+              <input type="radio" id="left" name="rotation" value={false}/>
+              <label for="left">Counter-Clockwise</label>
+            </div>
+            <br/>
+            <p>Choose the time for each surface:</p>
+            <div className={customStyles.generalTime}>
+              <input className={customStyles.textInput} type="text" id="timeInput" value={60} onChange={e => safeTimeInput(e.target.value.split(', '))}/>
+              <input className={customStyles.textInput} type="text" id="timeInput" value={60} onChange={e => safeTimeInput(e.target.value.split(', '))}/>
+              <input className={customStyles.textInput} type="text" id="timeInput" value={60} onChange={e => safeTimeInput(e.target.value.split(', '))}/>
+            </div>
           </div>
         </div>
       )}

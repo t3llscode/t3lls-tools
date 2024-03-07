@@ -11,4 +11,4 @@ export default function Segment({ radius, stroke, rotation, percentage, reversed
       </svg> 
     </div>
   );
-};
+}
