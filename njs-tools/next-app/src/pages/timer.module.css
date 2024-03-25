@@ -6,6 +6,7 @@
   align-items: center;
   height: 100svh;
   font: 8px 'Mohave', sans-serif;
+  user-select: none;
 }
 
 .container {
