@@ -15,9 +15,12 @@ export default function Home() {
           Welcome to my Tools.
         </h1>
         <br></br>
-        <a href="https://tools.t3l.ls/timer">
+        <a href="https://tools.t3l.ls/timer" className={styles.underline}>
           Click here to get to the Timer.
         </a>
+        <p>
+          More apps coming soon.
+        </p>
       </main>
     </div>
   )

@@ -324,7 +324,7 @@ export default function Home() {
 
       <Head>
         <title>t3lls tooth timer</title>
-        <link rel="icon" href="https://data.t3l.ls/media/t3.ico" />
+        <link rel="icon" href="/data/media/t3.ico" />
       </Head>
 
       <div className={customStyles.main}>
@@ -369,9 +369,9 @@ export default function Home() {
       <div className={customStyles.clickable} onClick={toggleShowSettings}>
         {
           showSettings ? (
-            <Image className={customStyles.settingsIcon} src="https://data.t3l.ls/media/icons/cancel2.svg" alt="Settings" width={500} height={500} />
+            <Image className={customStyles.settingsIcon} src="/data/media/icons/cancel2.svg" alt="Settings" width={500} height={500} />
           ) : (
-            <Image className={customStyles.settingsIcon} src="https://data.t3l.ls/media/icons/InfoGear.svg" alt="Settings" width={500} height={500} />
+            <Image className={customStyles.settingsIcon} src="/data/media/icons/InfoGear.svg" alt="Settings" width={500} height={500} />
           )
         }
       </div>
