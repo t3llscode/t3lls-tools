@@ -19,7 +19,7 @@ export default function Home() {
           Click here to get to the Timer.
         </a>
         <p>
-          More apps coming soon!
+          More apps coming really soon!
         </p>
       </main>
     </div>
