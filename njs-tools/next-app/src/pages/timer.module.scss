@@ -60,10 +60,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
 
-.inside :hover {
-  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .time {
@@ -105,12 +105,12 @@
 }
 
 .settingsBox {
-    position: absolute;
-    z-index: 15;
-    width: 100%;
-    max-width: 450px;
-    background-color: var(--secondary-transparent);
-    box-shadow: 0 0 180px 300px var(--secondary-transparent);
+  position: absolute;
+  z-index: 15;
+  width: 100%;
+  max-width: 450px;
+  background-color: var(--secondary-transparent);
+  box-shadow: 0 0 180px 300px var(--secondary-transparent);
 }
 
 .generalTime {

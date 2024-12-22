@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import customStyles from './timer.module.css'
+import customStyles from './timer.module.scss'
 
-import Segment from '../components/Segment';
-import Cell from '../components/Cell';
+import Segment from '../components/tooth timer/Segment';
+import Cell from '../components/tooth timer/Cell';
 
 import { useState, useEffect, useRef } from 'react';
 
