@@ -5,6 +5,7 @@ import customStyles from './certificate.module.scss'
 import { useState, useEffect, useRef } from 'react';
 
 import Header from '../components/multi purpose/header'
+import Footer from '../components/multi purpose/footer'
 
 export default function Home() {
 
@@ -16,21 +17,9 @@ export default function Home() {
                 <link rel="icon" href="/data/media/t3.ico" />
             </Head>
 
+            <Header title="Certificate Creator" foreground="#AA0011" background="grey"/>
 
-
-            {/* Header */}
-            
-
-            <img src="/data/media/icons/t3lls/t3lls.svg" height="16px"/>
-            <div>
-                <div>
-                    before
-                </div>
-                <Header title="Certificate Creator"/>
-                <div>
-                    after
-                </div>
-            </div>
+            <Footer title="Certificate Creator" foreground="white" background="grey"/>
 
             {/* File Upload or Default Set*/}
                 {/* "Slider Check" for File Upload or Default Set */}

@@ -4,14 +4,14 @@ import styles from './header.module.scss'
 
 import { useState, useEffect, useRef } from 'react';
 
-export default function Header({ title }) {
+export default function Header({ title, background, foreground }) {
 
     return (
         <div>
-            <div className={styles.header_box}>
+            <div className={styles.header_box} style={{backgroundColor: background}}>
                 <div className={styles.box}>
                     <img src="/data/media/icons/t3lls/t3lls.svg" height="16px"/>
-                    <p className={styles.header_text}>
+                    <p className={styles.header_text} style={{color: foreground}}>
                         {title}
                     </p>
                 </div>
