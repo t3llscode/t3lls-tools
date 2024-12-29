@@ -9,13 +9,15 @@ export default function Footer({ title, background, foreground }) {
     return (
         <div>
             <div className={styles.header_box} style={{backgroundColor: background}}>
-                <p className={styles.header_text} style={{color: foreground}}>
-                    © t3lls by Tell Hensel asdfasdfasdfsafasddfasfsad
+                <p className={styles.header_text} style={{color: foreground, textAlign: 'left'}}>
+                    © t3lls by Tell Hensel
                 </p>
                 <div className={styles.box}>
-                    <img src="/data/media/icons/t3lls/t3.svg" height="16px"/>
+                    <a href="https://www.t3l.ls" target="_blank">
+                        <img className={styles.t3} src="/data/media/icons/t3lls/t3.svg" height="16px"/>
+                    </a>
                 </div>
-                <p className={styles.header_text} style={{color: foreground}}>
+                <p className={styles.header_text} style={{color: foreground, textAlign: 'right'}}>
                     made in Germany
                 </p>
             </div>

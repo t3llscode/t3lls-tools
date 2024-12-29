@@ -1,14 +1,22 @@
 .header_box {
     padding: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .box {
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.t3 {
+    transform: rotate(0deg);
+    transition: transform 1s ease-in-out;
+}
+
+.t3:hover {
+    transform: rotate(360deg);
 }
 
 .header_text {

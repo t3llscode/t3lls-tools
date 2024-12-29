@@ -1,3 +1,25 @@
+$primary-color: rgb(249, 137, 0);
+$secondary-color: rgb(58, 57, 57);
+
 .white {
     color: white;
+}
+
+.body {
+    justify-content: center;
+    padding: 10px 3px;
+    background-color: rgb(22, 10, 0);
+    display: grid;
+    grid-template-columns: calc(15% - 6px) calc(65% - 10px) calc(20% - 6px);
+    gap: 10px;
+}
+  
+.body > div {
+    border-radius: 10px;
+    border: 2px solid $secondary-color;
+    transition: border-color 0.3s ease;
+}
+  
+.body > div:hover {
+    border-color: $primary-color;
 }

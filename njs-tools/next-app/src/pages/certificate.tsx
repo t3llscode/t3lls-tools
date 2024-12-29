@@ -17,9 +17,21 @@ export default function Home() {
                 <link rel="icon" href="/data/media/t3.ico" />
             </Head>
 
-            <Header title="Certificate Creator" foreground="#AA0011" background="grey"/>
+            <Header title="Certificate Creator" foreground="rgb(255, 255, 255)" background="rgb(249, 137, 0)"/>
 
-            <Footer title="Certificate Creator" foreground="white" background="grey"/>
+            <div className={customStyles.body} style={{height: 'calc(100vh - 112px)'}}>
+                <div>
+
+                </div>
+                <div>
+                    
+                </div>
+                <div>
+                    
+                </div>
+            </div>
+
+            <Footer title="Certificate Creator" foreground="rgb(255, 255, 255)" background="rgb(58, 57, 57)"/>
 
             {/* File Upload or Default Set*/}
                 {/* "Slider Check" for File Upload or Default Set */}
