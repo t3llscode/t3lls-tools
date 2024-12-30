@@ -6,6 +6,7 @@ $secondary-color: rgb(58, 57, 57);
 }
 
 .body {
+    min-height: 200px;
     justify-content: center;
     padding: 10px 3px;
     background-color: rgb(22, 10, 0);
@@ -13,13 +14,98 @@ $secondary-color: rgb(58, 57, 57);
     grid-template-columns: calc(15% - 6px) calc(65% - 10px) calc(20% - 6px);
     gap: 10px;
 }
-  
-.body > div {
-    border-radius: 10px;
-    border: 2px solid $secondary-color;
-    transition: border-color 0.3s ease;
+
+.body {
+    > div {  // First level boxes
+        z-index: 10;
+        border-radius: 10px;
+        transition: border-color 0.3s ease;
+        display: grid;
+        gap: 10px;
+
+        &.ratio20_80 {
+            grid-template-rows: calc(20% - 5px) calc(80% - 5px);
+        }
+    
+        &:hover > .box_title {
+            color: $primary-color;
+        }
+    
+        > div {  // Second level boxes (innermost)
+            min-height: 70px;
+            color: rgb(222, 222, 222);
+            border-radius: 10px;
+            border: 2px solid $secondary-color;
+            transition: border-color 0.3s ease;
+            
+            &:hover {
+            border-color: $primary-color;
+            
+                > .box_title {
+                    color: $primary-color;
+                }
+            }
+
+            > div {
+                overflow-y: auto;
+
+                &::-webkit-scrollbar {
+                    width: 4px;
+                }
+                
+                &::-webkit-scrollbar-track {
+                    background: $secondary-color;
+                    border-radius: 2px;
+                }
+                
+                &::-webkit-scrollbar-thumb {
+                    background: $primary-color;
+                    border-radius: 2px;
+                }
+            }
+        }
+    }
 }
-  
-.body > div:hover {
-    border-color: $primary-color;
+
+.box_title {
+    color: rgb(100, 100, 100);
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    transition: color 0.3s ease;
+}
+
+
+
+/* SLIDER */
+
+// Switch size variables
+$switch-width: 40px;
+$switch-height: 20px;
+$slider-circle-size: 12px;
+$slider-circle-margin: 4px;
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: $switch-width;
+    height: $switch-height;
+
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked + .slider {
+            background-color: $primary-color;
+        }
+
+        &:checked + .slider:before {
+            transform: translateX($slider-circle-size + $slider-circle-margin * 2);
+        }
+    }
 }
