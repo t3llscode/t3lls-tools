@@ -10,25 +10,6 @@ import FileSelect from '../components/certificate creator/fileselect'
 
 export default function Home() {
 
-    const [windowSize, setWindowSize] = useState({
-        width: undefined,
-        height: undefined
-    });
-
-    useEffect(() => {
-        function handleResize() {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight
-            });
-        }
-        
-        window.addEventListener('resize', handleResize);
-        handleResize();
-        
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
     return (
         <div>
             <Head>
@@ -40,11 +21,11 @@ export default function Home() {
 
             <div className={customStyles.body} style={{height: 'calc(100vh - 112px)'}}>
                 <div className={customStyles.ratio20_80}>
-                    <div>
+                    <div className={customStyles.padded}>
                         <p className={customStyles.box_title}>
                             CONFIG FILE
                         </p>
-                        <div>
+                        <div style={{height: "100%"}}>
                             <FileSelect/>
                         </div>
                     </div>

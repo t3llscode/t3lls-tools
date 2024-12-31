@@ -5,7 +5,6 @@ export default function FileSelect() {
 
     return (
         <div className={scss.container}>
-
             <div className={scss.title}>
                 You are currently using the default set
             </div>
