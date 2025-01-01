@@ -25,7 +25,7 @@ export default function Home() {
                         <p className={customStyles.box_title}>
                             CONFIG FILE
                         </p>
-                        <div style={{height: "100%"}}>
+                        <div>
                             <FileSelect/>
                         </div>
                     </div>

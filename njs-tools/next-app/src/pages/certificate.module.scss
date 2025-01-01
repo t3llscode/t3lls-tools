@@ -24,7 +24,6 @@ $background-color: rgb(22, 10, 0);
         transition: border-color 0.3s ease;
         display: grid;
         gap: 10px;
-        padding-right: 0px;
 
         &.ratio20_80 {
             grid-template-rows: calc(20% - 5px) calc(80% - 5px);
@@ -32,6 +31,7 @@ $background-color: rgb(22, 10, 0);
     
         > div {  // Second level boxes (innermost)
             min-height: 70px;
+            height: 100%;
             color: rgb(222, 222, 222);
             border-radius: 10px;
             border: 2px solid $secondary-color;
@@ -47,37 +47,11 @@ $background-color: rgb(22, 10, 0);
             }
 
             > div {
-                background: green;
+                margin: 0px;
+                padding: 0px;
                 overflow-y: auto;
-                max-height: calc(100% - 35px);
-
-                $shadow-cover-color: $background-color; // background
-                $shadow-transparent: rgba(255, 255, 255, 0);
-                $shadow-dark: rgb(58, 57, 57, 1);
-                $shadow-dark-transparent: rgba(0, 0, 0, 0);
-
-                background:
-                    /* Shadow covers */
-                    linear-gradient($shadow-cover-color 30%, $shadow-transparent),
-                    linear-gradient($shadow-transparent, $shadow-cover-color 70%) 0 100%,
-                    
-                    /* Shadows */
-                    linear-gradient(to bottom, $shadow-dark, $shadow-dark-transparent),
-                    linear-gradient(to top, $shadow-dark, $shadow-dark-transparent) 0 100%;
-                background:
-                    /* Shadow covers */
-                    linear-gradient($shadow-cover-color 30%, $shadow-transparent),
-                    linear-gradient($shadow-transparent, $shadow-cover-color 70%) 0 100%,
-                    
-                    /* Shadows */
-                    linear-gradient(to bottom, $shadow-dark, $shadow-dark-transparent),
-                    linear-gradient(to top, $shadow-dark, $shadow-dark-transparent) 0 100%;
-                background-repeat: no-repeat;
-                background-color: $shadow-cover-color;
-                background-size: 100% 40px, 100% 40px, 100% 2px, 100% 0px;
-                
-                /* Opera doesn't support this in the shorthand */
-                background-attachment: local, local, scroll, scroll;
+                max-height: calc(100% - 31px);
+                height: 100%;
 
                 &::-webkit-scrollbar {
                     width: 4px;
@@ -86,7 +60,7 @@ $background-color: rgb(22, 10, 0);
                 &::-webkit-scrollbar-track {
                     background: $secondary-color;
                     border-radius: 2px;
-                    margin-top: 2px;
+                    margin-top: -2px;
                     margin-bottom: 6px;
                 }
                 
@@ -103,10 +77,13 @@ $background-color: rgb(22, 10, 0);
 
 .box_title {
     color: rgb(100, 100, 100);
+    border-bottom: 2px solid $secondary-color;
+    border-radius: 2px;
     position: relative;
     top: 0;
     left: 0;
-    margin: 10px;
+    margin: 9px 9px 0px 4px;  // increased bottom margin from 0 to 5px
+    padding-bottom: 5px;        // added padding-bottom
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 1.5px;
