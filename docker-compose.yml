@@ -77,7 +77,7 @@ services:
     command: ["-c", "shared_preload_libraries=uuid-ossp"]
 
   db-tools-adminer:
-    container_name: maintime-db-tools-adminer
+    container_name: tools-db-tools-adminer
     image: adminer
     restart: always
     networks: # internal port 8080
