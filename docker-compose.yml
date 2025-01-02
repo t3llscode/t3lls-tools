@@ -1,9 +1,23 @@
-version: "3.8"
-
 networks:
 
   t3lls_gate--app_net:
     external: true
+
+  t3lls_gate--api_net:
+    external: true
+
+  t3lls_gate--adminer_net:
+    external: true
+
+  api-tools--db_net:
+    driver: bridge
+
+  db-tools--adminer_net:
+    driver: bridge
+
+secrets:
+  db_password:
+    file: .secrets/db_password
 
 services:
 
@@ -36,3 +50,36 @@ services:
     env_file:
       - ./njs-tools/.env
     stop_grace_period: 0s
+
+  api-tools:
+    build:
+      context: ./api-tools
+      dockerfile: dev.Dockerfile
+    restart: always
+    networks: # internal port 8080
+      - t3lls_gate--api_net
+      - api-tools--db_net
+    volumes:
+      - ./api-tools/app:/code/app
+
+  db-tools:
+    image: postgres:latest
+    restart: unless-stopped
+    networks: # internal port 5432
+      - api-tools--db_net
+      - db-tools--adminer_net
+    volumes:
+      - ./db-tools/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: manualuser
+      POSTGRES_PASSWORD: temporarypassword
+      POSTGRES_DB: tools
+    command: ["-c", "shared_preload_libraries=uuid-ossp"]
+
+  db-tools-adminer:
+    container_name: maintime-db-tools-adminer
+    image: adminer
+    restart: always
+    networks: # internal port 8080
+      - t3lls_gate--adminer_net
+      - db-tools--adminer_net
