@@ -17,7 +17,7 @@ networks:
 
 secrets:
   db_password:
-    file: .secrets/db_password
+    file: .secrets/db_password.txt
 
 services:
 
@@ -63,18 +63,24 @@ services:
       - ./api-tools/app:/code/app
 
   db-tools:
-    image: postgres:latest
+    build:
+      context: ./db-tools
+      dockerfile: Dockerfile
     restart: unless-stopped
     networks: # internal port 5432
       - api-tools--db_net
       - db-tools--adminer_net
     volumes:
-      - ./db-tools/data:/var/lib/postgresql/data
+      - ./db-tools/data:/var/lib/postgresql/data        # Add data mount
+      - ./db-tools/schema:/var/lib/postgresql/schema    # Add schema mount
+      - ./db-tools/exports:/var/lib/postgresql/exports  # Add exports mount
     environment:
       POSTGRES_USER: manualuser
-      POSTGRES_PASSWORD: temporarypassword
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password.txt
       POSTGRES_DB: tools
     command: ["-c", "shared_preload_libraries=uuid-ossp"]
+    secrets:
+      - db_password
 
   db-tools-adminer:
     container_name: tools-db-tools-adminer
