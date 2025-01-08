@@ -13,7 +13,7 @@ export default function Home() {
     return (
         <div>
             <Head>
-                <title>t3lls certificate creator</title>
+                <title>t3lls | Certificate Creator</title>
                 <link rel="icon" href="/data/media/t3.ico" />
             </Head>
 
@@ -51,7 +51,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <Footer title="Certificate Creator" foreground="rgb(255, 255, 255)" background="rgb(58, 57, 57)"/>
+            <Footer left="t3lls | Software Solutions" right="© t3lls by Tell Hensel" foreground="rgb(255, 255, 255)" background="rgb(58, 57, 57)"/>
 
             {/* File Upload or Default Set*/}
                 {/* "Slider Check" for File Upload or Default Set */}
