@@ -17,7 +17,7 @@ networks:
 
 secrets:
   db_password:
-    file: .secrets/db_password.txt
+    file: .secrets/db_password
 
 services:
 
@@ -61,6 +61,8 @@ services:
       - api-tools--db_net
     volumes:
       - ./api-tools/app:/code/app
+    secrets:
+      - db_password
 
   db-tools:
     build:
@@ -76,7 +78,7 @@ services:
       - ./db-tools/exports:/var/lib/postgresql/exports  # Add exports mount
     environment:
       POSTGRES_USER: manualuser
-      POSTGRES_PASSWORD_FILE: /run/secrets/db_password.txt
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
       POSTGRES_DB: tools
     command: ["-c", "shared_preload_libraries=uuid-ossp"]
     secrets:

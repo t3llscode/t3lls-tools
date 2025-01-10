@@ -3,7 +3,7 @@ import customStyles from './certificate.module.scss'
 
 import Header from '../components/multi purpose/header'
 import Footer from '../components/multi purpose/footer'
-import SQLQueryCreator from '../components/SQLQueryCreator'
+// import SQLQueryCreator from '../components/SQLQueryCreator'
 
 export default function Home() {
 
@@ -20,7 +20,7 @@ export default function Home() {
 
             <div className={customStyles.body} style={{height: 'calc(100vh - 112px)'}}>
                 
-                <SQLQueryCreator config={config}/>
+                {/* <SQLQueryCreator config={config}/> */}
             
             </div>
 
