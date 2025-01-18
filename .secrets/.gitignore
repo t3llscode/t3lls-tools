@@ -1,2 +1,5 @@
 *
 !.gitignore
+
+# Expected Secrets:
+# db_password

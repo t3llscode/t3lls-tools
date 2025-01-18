@@ -51,19 +51,6 @@ services:
       - ./njs-tools/.env
     stop_grace_period: 0s
 
-  api-tools:
-    build:
-      context: ./api-tools
-      dockerfile: dev.Dockerfile
-    restart: always
-    networks: # internal port 8080
-      - t3lls_gate--api_net
-      - api-tools--db_net
-    volumes:
-      - ./api-tools/app:/code/app
-    secrets:
-      - db_password
-
   db-tools:
     build:
       context: ./db-tools
@@ -80,7 +67,6 @@ services:
       POSTGRES_USER: manualuser
       POSTGRES_PASSWORD_FILE: /run/secrets/db_password
       POSTGRES_DB: tools
-    command: ["-c", "shared_preload_libraries=uuid-ossp"]
     secrets:
       - db_password
 
@@ -91,3 +77,19 @@ services:
     networks: # internal port 8080
       - t3lls_gate--adminer_net
       - db-tools--adminer_net
+
+  api-tools:
+    build:
+      context: ./api-tools
+      dockerfile: Dockerfile
+    restart: always
+    networks: # internal port 8000
+      - t3lls_gate--api_net
+      - api-tools--db_net
+    volumes:
+      - ./api-tools/t3_code:/app/t3_code
+      - ./api-tools/.vscode-server:/root/.vscode-server
+    environment:
+      - PYTHONPATH=/app/t3_code
+    secrets:
+      - db_password

@@ -1,3 +1,8 @@
-fastapi[standard]
-pydantic
-sqlalchemy
+pydantic==2.11.4            # Data validation and settings management
+
+uvicorn==0.34.1             # ASGI Server for fastapi
+fastapi==0.115.12           # High-performance web framework
+python-multipart==0.0.20    # Multipart Parser (required for file uploads)
+
+SQLAlchemy==2.0.40          # SQL toolkit and ORM
+asyncpg==0.30.0             # PostgreSQL Async Driver
