@@ -45,8 +45,7 @@ services:
     networks:
       - t3lls_gate--app_net
     volumes:
-      - ./njs-tools/next-app/src:/app/src
-      - ./njs-tools/next-app/public:/app/public
+      - ./njs-tools/next-app:/app
     env_file:
       - ./njs-tools/.env
     stop_grace_period: 0s
