@@ -12,7 +12,7 @@ const formatDate = (date: Date): string => {
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
-    
+
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 };
 
@@ -68,9 +68,22 @@ export default function CommitCreator({ }) {
                                 type="datetime-local" 
                                 className={styles.no_box_time}
                                 value={dateTime ? formatDate(dateTime) : ''}
-                                onChange={(e) => {
+                                onChange={async (e) => {
                                     if (e.target.value) {
                                         const selectedDateTime = new Date(e.target.value);
+                                        // Detect Safari or Firefox
+                                        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+                                        const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+                                        if (isSafari || isFirefox) {
+                                            // Prompt for time input
+                                            const currentTime = selectedDateTime.toTimeString().slice(0,5); // HH:MM
+                                            const userTime = window.prompt('Adjust time (HH:MM):', currentTime);
+                                            if (userTime && /^\d{2}:\d{2}$/.test(userTime)) {
+                                                const [h, m] = userTime.split(":").map(Number);
+                                                selectedDateTime.setHours(h);
+                                                selectedDateTime.setMinutes(m);
+                                            }
+                                        }
                                         setDateTime(selectedDateTime);
                                     }
                                 }}
@@ -79,26 +92,7 @@ export default function CommitCreator({ }) {
                             />
                         </div>
                         <br></br>
-                        <button 
-                            onClick={() => setDateTime(new Date())}
-                            className={styles.no_box}
-                        >
-                            ↻ reset to current date
-                        </button>
-                        <br></br>
                         <div className={styles.random_options}>
-                            <div className={styles.checkboxes}>
-                                {['seconds', 'minutes', 'hours', 'day', 'month', 'year'].map((unit) => (
-                                    <label key={unit} className={styles.checkbox_label}>
-                                        <input 
-                                            type="checkbox" 
-                                            defaultChecked={unit === 'seconds' || unit === 'minutes' || unit === 'hours'}
-                                            id={`random-${unit}`}
-                                        />
-                                        {unit}
-                                    </label>
-                                ))}
-                            </div>
                             <button 
                                 onClick={() => {
                                     const newDate = new Date(dateTime || new Date());
@@ -129,7 +123,27 @@ export default function CommitCreator({ }) {
                             >
                                 🎲 Randomize selected
                             </button>
+                            <br></br>
+                            <div className={styles.checkboxes}>
+                                {['seconds', 'minutes', 'hours', 'day', 'month', 'year'].map((unit) => (
+                                    <label key={unit} className={styles.checkbox_label}>
+                                        <input 
+                                            type="checkbox" 
+                                            defaultChecked={unit === 'seconds' || unit === 'minutes' || unit === 'hours'}
+                                            id={`random-${unit}`}
+                                        />
+                                        {unit}
+                                    </label>
+                                ))}
+                            </div>
                         </div>
+                        <div style={{ marginTop: '10px' }}></div>
+                        <button 
+                            onClick={() => setDateTime(new Date())}
+                            className={styles.no_box}
+                        >
+                            ↻ reset to current date
+                        </button>
                     </div>
                 </div>
             </div>
