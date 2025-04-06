@@ -33,7 +33,7 @@ export default function CommitCreator() {
             const lines = msg.split("\n").filter(line => line.trim() !== "");
             messageString = lines.map(line => `-m "${line.trim()}"`).join(" ") + " ";
         }
-        let allow = allowTrue ? '--allow-true ' : '';
+        let allow = allowTrue ? '--allow-empty ' : '';
         let addAfter = addAll ? 'git add . && ' : '';
         let prefix = osType === 'windows'
             ? `set GIT_COMMITTER_DATE=\"${dateString}\" && `
@@ -107,9 +107,6 @@ export default function CommitCreator() {
                         </div>
                         <br />
                         <div className={styles.random_options}>
-                            <button onClick={randomizeDate} className={styles.no_box}>
-                                🎲 Randomize selected
-                            </button>
                             <div className={styles.checkboxes} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 24px', maxWidth: '220px' }}>
                                 {[0,1,2].map(i => (
                                     <React.Fragment key={i}>
@@ -131,6 +128,10 @@ export default function CommitCreator() {
                                     </React.Fragment>
                                 ))}
                             </div>
+                            <div style={({ height: '5px' })}></div>
+                            <button onClick={randomizeDate} className={styles.no_box}>
+                                🎲 Randomize selected
+                            </button>
                         </div>
                         <div style={{ marginTop: '10px' }}></div>
                         <button onClick={() => setDateTime(new Date())} className={styles.no_box}>
